@@ -24,14 +24,14 @@ describe("Catalogue", () => {
     });
   });
   describe("removeProductById", () => {
-    it("should remove product with a valid id", () => {
+    it("should remove product with a valid id", function () {
       let result = cat.removeProductById("A123");
       expect(result.id).to.equal("A123");
-      // Check target state
+      // Check target state 
       result = cat.findProductById("A123");
       expect(result).to.be.undefined;
     });
-    it("should return undefined when asked to remove invalid product", () => {
+    it("should return undefined when asked to remove invalid product", function () {
       const result = cat.removeProductById("A321");
       expect(result).to.be.undefined;
     });
@@ -51,10 +51,12 @@ describe("Catalogue", () => {
     it("should include products just on their reorder level", function () {
       cat.addProduct(new Product("B125", "Product 6", 10, 10, 10.0));
       const result = cat.checkReorders();
-      // TO BE COMPLETED
+      expect(result.productIds).to.have.members(["B125"]);
     });
     it("should handle an empty catalogue", function () {
-       // TO BE COMPLETED
+      cat = new Catalogue("Test catalogue");
+      const result = cat.checkReorders();
+      expect(result.productIds).to.be.empty;
      });
   });
 });
