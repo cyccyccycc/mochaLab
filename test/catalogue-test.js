@@ -91,5 +91,25 @@ describe("Catalogue", () => {
       let rejectedProduct = cat.findProductById("A126");
       expect(rejectedProduct).to.be.undefined; 
     });
- });
+   });
+  describe("search", () => {
+    it("should return the products whose price is less than (or equal to) the specified value", function () {
+      cat.addProduct(new Product("A126", "Product 4", 10, 20, 26.0));
+      cat.addProduct(new Product("A127", "Product 5", 10, 30, 20.0));
+    const result = cat.searchProductLowerthanPrice("25.01");
+    expect(result.productPrice).to.have.members([10.0,10.0,20.0]);
+   });
+    it("should return products with 'keywords' in the name", function () {
+      cat.addProduct(new Product("A126", "shoes", 10, 20, 10.0));
+      cat.addProduct(new Product("A127", "shoulder bag", 10, 90, 10.0));
+    const result = cat.searchProductByKeywords("sho");
+    expect(result.productname).to.have.members(["shoes","shoulder bag"]);
+   });
+    it("If the criteria object has neither key then an exception should be thrown with the message 'Bad search'", function(){
+     cat.addProduct(new Product("A126", "shoes", 10, 20, 10.0));
+     cat.addProduct(new Product("A127", "shoulder bag", 10, 90, 10.0));
+     const result = cat.searchProductByKeywords("xxxx");
+     expect(result.productname).to.be.empty
+     })
+  });
 });

@@ -24,6 +24,7 @@ class Catalogue {
       );
     }
     return removedProduct;
+  
   }
   checkReorders() {
     const result = { type: "Reorder", productIds: [] };
@@ -48,5 +49,21 @@ class Catalogue {
       .reduce((acc, p) => acc + 1, 0);
     return noProductsAdded;
   }
+  searchProductLowerthanPrice(price){
+    const result = { productPrice: [] };
+    result.productPrice = this.products
+      .filter((product) => product.price <= price)
+      .map((product) => product.price);
+    return result;
+  }
+  searchProductByKeywords(keywords){
+    const result = { productname: [] };
+    result.productname = this.products
+      .filter((product) => product.name.search(keywords) != -1)
+      .map((product) => product.name);
+      return result;
+  }
+
 }
+
 module.exports = Catalogue;
