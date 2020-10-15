@@ -57,11 +57,16 @@ class Catalogue {
     return result;
   }
   searchProductByKeywords(keywords){
-    const result = { productname: [] };
-    result.productname = this.products
+    if(keywords != undefined){
+     const result = { productname: [] };
+     result.productname = this.products
       .filter((product) => product.name.search(keywords) != -1)
       .map((product) => product.name);
       return result;
+    }
+    else if(keywords = undefined){
+      console.log("Bad search");
+    }
   }
 
 }
